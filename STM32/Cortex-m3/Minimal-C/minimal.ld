@@ -1,14 +1,31 @@
+/*
+.text : {
+	startup.o(.text)
+	minimal.o(.text)
+}
+*/
+
+MEMORY
+{
+    FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 1024K
+    RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 128K
+}
+
+_Start_Stack = ORIGIN(RAM) + LENGTH(RAM);
+
+ENTRY(start)
+
 SECTIONS
 {
-	 . = 0x0; /* Это флэшка (ROM) */
-	.text : {
-		startup.o(.text)
-		minimal.o(.text)
-	}
-	. = 0x20000000; /* С этого адреса начинается RAM */
-	.data : { *(.data) }
-	.bss : { *(.bss) }
-	. = ALIGN(8);
-	. = . + 0x1000; /* Отдаем под стек 4кБ */
-	stack_top = .;
+    .text :
+    {
+        *(.text)
+
+    } > FLASH
+
+    .stack :
+    {
+	KEEP(*(.stack))
+    } > RAM
+
 }

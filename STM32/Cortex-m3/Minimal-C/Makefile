@@ -7,7 +7,7 @@ OBJ=arm-none-eabi-objcopy
 DUMP=arm-none-eabi-objdump
 
 STARTUP=startup
-ARCH_FLAGS=-c -mthumb -mlittle-endian -march=armv7-m -mcpu=cortex-m3
+ARCH_FLAGS=-c -mthumb -mcpu=cortex-m4
 CFLAGS=$(ARCH_FLAGS) -ffreestanding -nostdlib -g
 
 OFLAGS=-Obinary
