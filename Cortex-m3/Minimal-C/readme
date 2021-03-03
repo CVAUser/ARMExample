@@ -3,4 +3,4 @@ https://habr.com/ru/company/embox/blog/421833/
 
 
 run QENU in console
-qemu-system-arm -M lm3s811evb -kernel test.elf -nographic
+qemu-system-arm -M lm3s811evb -kernel $(FILE).elf -nographic
