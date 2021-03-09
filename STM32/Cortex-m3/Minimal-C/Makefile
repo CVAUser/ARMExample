@@ -8,16 +8,17 @@ DUMP=arm-none-eabi-objdump
 
 STARTUP=startup
 ARCH_FLAGS=-c -mthumb -mcpu=cortex-m4
-CFLAGS=$(ARCH_FLAGS) -ffreestanding -nostdlib -g
+CFLAGS=$(ARCH_FLAGS) -ffreestanding -nostdlib -g --specs=nano.specs --specs=rdimon.specs 
 
 OFLAGS=-Obinary
 DFLAGS=-D
+LFLAGS=-T
 
 $(TARGET).bin: $(TARGET).elf
 	$(OBJ) $(OFLAGS) $(TARGET).elf $(TARGET).bin
 
 $(TARGET).elf: $(STARTUP).o $(TARGET).o $(TARGET).ld
-	$(LD) -T $(TARGET).ld *.o -o $(TARGET).elf
+	$(LD) $(LFLAGS) $(TARGET).ld *.o -o $(TARGET).elf
 
 $(TARGET).o: $(TARGET).c 
 	$(CC) $(CFLAGS) *.c -o $(TARGET).o

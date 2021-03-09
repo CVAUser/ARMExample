@@ -1,14 +1,7 @@
-static volatile unsigned int * const UART_DR = (unsigned int *)0x4000c000;
+#include <stdio.h>
 
-static void uart_print(const char *s) {
-	while (*s != '\0') {
-		*UART_DR = *s;
-		s++;
-	}
-}
-
-void c_entry(void) {
-	uart_print("Hello, World!\n");
-	while (1)
-	    ;
+int main() {
+	printf("Hello, world!");
+	printf("\n");
+	return 0;
 }
