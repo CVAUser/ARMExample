@@ -3,6 +3,7 @@
 
 sudo port install arm-none-eabi-gcc
 sudo port install arm-none-eabi-gdb
+sudo port install arm-none-eabi-binutils
 
 Отладчики
 sudo port install openocd
@@ -41,4 +42,7 @@ openocd -f board/stm32f3discovery.cfg \
    clear
    info registers
    x/fx адрес
+
+run QENU in console
+qemu-system-arm -M lm3s811evb -kernel $(FILE).elf -nographic
 
