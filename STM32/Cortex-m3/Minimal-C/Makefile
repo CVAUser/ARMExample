@@ -1,33 +1,33 @@
 TARGET=minimal
 
 CC=arm-none-eabi-gcc
-AS=arm-none-eabi-as
-LD=arm-none-eabi-ld
 OBJ=arm-none-eabi-objcopy
 DUMP=arm-none-eabi-objdump
 
-STARTUP=startup
-ARCH_FLAGS=-c -mthumb -mcpu=cortex-m4
-CFLAGS=$(ARCH_FLAGS) -ffreestanding -nostdlib -g --specs=nano.specs --specs=rdimon.specs 
+ARCH_FLAGS=-mthumb -mcpu=cortex-m4
+STARTUP=startup.S
+LDSCRIPTS=-L. -T minimal.ld
 
+USE_NANO=-specs=nano.specs
+USE_SEMIHOST=-specs=rdimon.specs
+USE_NOHOST=-specs=nosys.specs
+
+CFLAGS=$(ARCH_FLAGS) -g
+LFLAGS=$(USE_NANO) $(USE_SEMIHOST) $(LDSCRIPTS)
 OFLAGS=-Obinary
 DFLAGS=-D
-LFLAGS=-T
 
-$(TARGET).bin: $(TARGET).elf
-	$(OBJ) $(OFLAGS) $(TARGET).elf $(TARGET).bin
 
-$(TARGET).elf: $(STARTUP).o $(TARGET).o $(TARGET).ld
-	$(LD) $(LFLAGS) $(TARGET).ld *.o -o $(TARGET).elf
 
-$(TARGET).o: $(TARGET).c 
-	$(CC) $(CFLAGS) *.c -o $(TARGET).o
 
-$(STARTUP).o: $(STARTUP).S
-	$(AS) $(ARCH_FLAGS) $(STARTUP).S -o $(STARTUP).o
+$(TARGET).bin: $(TARGET).axf
+	$(OBJ) $(OFLAGS) $(TARGET).axf $(TARGET).bin
+
+$(TARGET).axf: $(TARGET).c $(STARTUP)
+		$(CC) $^ $(CFLAGS) $(LFLAGS) -o $@
 
 list:
 	$(DUMP) $(DFLAGS) $(TARGET).elf > $(TARGET).list
 
-clean: 
+clean:
 	rm -f $(TARGET)*.elf *.map *.o *.bin *.list

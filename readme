@@ -19,6 +19,16 @@ sudo port install qemu +target_arm
 Отладка с помощью arm-none-eabi-gdb микроконтроллера STM32F407VG
 
 1. Необходимо запустить утилиту openocd -f board/stm32f4discovery.cfg
+
+# program and verify using elf/hex/s19. verify and reset
+# are optional parameters
+openocd -f board/stm32f3discovery.cfg \
+	-c "program filename.elf verify reset exit"
+
+# binary files need the flash address passing
+openocd -f board/stm32f3discovery.cfg \
+	-c "program filename.bin exit 0x08000000"
+
 2. Запустить arm-none-eabi-gdb fancyblink.axf, где fancyblink объектный файл
 3. Ввести команду target remote localhost:3333 для подключения к микроконтроллеру
 4. Запуск команд отладки:
