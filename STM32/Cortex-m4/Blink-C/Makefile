@@ -8,7 +8,7 @@ ARCH_FLAGS=-mthumb -mcpu=cortex-m4
 STARTUP=startup.S
 LDSCRIPTS=-T $(TARGET).ld
 
-CFLAGS=-nolibc -nostdlib $(ARCH_FLAGS) -g
+CFLAGS=-nostdlib $(ARCH_FLAGS) -g
 LFLAGS=$(LDSCRIPTS)
 OFLAGS=-Obinary
 DFLAGS=-D
