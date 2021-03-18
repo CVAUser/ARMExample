@@ -6,6 +6,7 @@
 #define GPIOD (*(volatile uint32_t *)(0x40020C00))
 #define GPIO_BSSR (*(volatile uint32_t *)(0x40020C18))
 
+
 void main() {
 	RCC_AHB1ENR = GPIO_D_ENABLE;
 	GPIOD = 0x01000000;
