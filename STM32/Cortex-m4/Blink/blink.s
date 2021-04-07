@@ -25,13 +25,14 @@
   .long Reset_Exception
   
 Reset_Exception:
-    MOV32 r0   ,RCC_BASE + RCC_AHB1ENR
-    MOV32 r1   ,GPIODEN
-    str r1     ,[r0]
+    mov.w r1,   GPIODEN
+    ldr r0,     =RCC_BASE + RCC_AHB1ENR
+    str r1,     [r0]
 
-    MOV32 r2   ,GPIOD
-    MOV32 r3   ,GPIOD_MODER
-    str r3     ,[r2]
+
+    mov.w r3,   GPIOD_MODER
+    ldr r2,     =GPIOD
+    str r3,     [r2]
 
 BLINK_Loop:
     MOV32 r0   ,GPIOD + GPIO_BSSR
