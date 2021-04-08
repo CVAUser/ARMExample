@@ -34,6 +34,7 @@ openocd -f board/stm32f4discovery.cfg \
 3. Ввести команду target remote localhost:3333 для подключения к микроконтроллеру
 4. Запуск команд отладки:
    load //залить прошивку
+   monitor reset halt
    next
    step
    run
