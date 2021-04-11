@@ -43,6 +43,9 @@ openocd -f board/stm32f4discovery.cfg \
    info registers
    x/fx адрес
 
+Подключение к USB-TTL адаптеру
+screen /dev/tty.wchusbserialfa130 9600
+
 run QENU in console
 qemu-system-arm -M lm3s811evb -kernel $(FILE).elf -nographic
 
